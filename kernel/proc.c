@@ -168,6 +168,7 @@ freeproc(struct proc *p)
   p->chan = 0;
   p->killed = 0;
   p->xstate = 0;
+  p->trace_mask=0;
   p->state = UNUSED;
 }
 
@@ -289,6 +290,8 @@ kfork(void)
   np->cwd = idup(p->cwd);
 
   safestrcpy(np->name, p->name, sizeof(p->name));
+
+  np->trace_mask=p->trace_mask;
 
   pid = np->pid;
 
